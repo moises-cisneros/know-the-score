@@ -1,0 +1,33 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0052FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#logoGradient)" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Soccer ball -->
+  <circle cx="60" cy="60" r="25" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Soccer ball pattern -->
+  <path d="M60 35 L70 45 L60 55 L50 45 Z" fill="url(#logoGradient)"/>
+  <circle cx="60" cy="45" r="8" fill="url(#logoGradient)"/>
+  <circle cx="52" cy="52" r="8" fill="url(#logoGradient)"/>
+  <circle cx="68" cy="52" r="8" fill="url(#logoGradient)"/>
+  <circle cx="60" cy="60" r="8" fill="url(#logoGradient)"/>
+
+  <!-- Prediction arrows -->
+  <path d="M35 35 L45 35 L42.5 32.5 M42.5 37.5 L45 35" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M85 35 L75 35 L77.5 32.5 M77.5 37.5 L75 35" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M35 85 L45 85 L42.5 87.5 M42.5 82.5 L45 85" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M85 85 L75 85 L77.5 87.5 M77.5 82.5 L75 85" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Trophy icon -->
+  <path d="M50 25 L70 25 L75 35 L55 35 Z" fill="#FFD700" stroke="#ffffff" stroke-width="1"/>
+  <rect x="57" y="35" width="6" height="8" fill="#FFD700" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="60" cy="45" r="3" fill="#FFD700" stroke="#ffffff" stroke-width="1"/>
+</svg>
