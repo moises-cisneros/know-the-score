@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Heading, Text, Card, Section, Container } from "./ui";
 import { Button } from "./DemoComponents";
 import { WalletConnectWrapper } from "./WalletConnectWrapper";
+import { FaGift, FaTrophy, FaComments, FaBolt, FaCrosshairs } from "react-icons/fa";
 
 export function CTA() {
   const [timeLeft, setTimeLeft] = useState({
@@ -82,17 +83,17 @@ export function CTA() {
           {/* Benefits Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <div className="text-3xl mb-3">🎁</div>
+              <FaGift className="text-3xl mb-3 text-white" />
               <div className="font-semibold mb-2 text-white">Bonos de Lanzamiento</div>
               <div className="text-sm text-white/80">Los primeros 100 usuarios reciben 2x recompensas</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <div className="text-3xl mb-3">🏆</div>
+              <FaTrophy className="text-3xl mb-3 text-white" />
               <div className="font-semibold mb-2 text-white">Badge Exclusivo</div>
               <div className="text-sm text-white/80">NFT especial &apos;Pionero&apos; para early adopters</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-              <div className="text-3xl mb-3">💬</div>
+              <FaComments className="text-3xl mb-3 text-white" />
               <div className="font-semibold mb-2 text-white">Acceso VIP</div>
               <div className="text-sm text-white/80">Canal exclusivo en Farcaster para feedback</div>
             </div>
@@ -101,7 +102,6 @@ export function CTA() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <WalletConnectWrapper
-              fallbackText="🚀 Unirme Ahora - Es Gratis"
               size="lg"
               className="bg-white text-accent hover:bg-gray-100 font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-lg"
             />
@@ -126,11 +126,11 @@ export function CTA() {
               Únete a +500 usuarios ya activos
             </Text>
             <div className="flex justify-center items-center space-x-6 text-sm text-white/60">
-              <span>🔒 Smart Contracts Auditados</span>
+              <span><FaBolt className="inline mr-1" /> Smart Contracts Auditados</span>
               <span>•</span>
-              <span>⚡ Base Network</span>
+              <span><FaBolt className="inline mr-1" /> Base Network</span>
               <span>•</span>
-              <span>🎯 99.9% Uptime</span>
+              <span><FaCrosshairs className="inline mr-1" /> 99.9% Uptime</span>
             </div>
           </div>
         </div>

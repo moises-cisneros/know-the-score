@@ -1,17 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "./DemoComponents";
-import { Heading, Text, Badge, Container } from "./ui";
+import { Heading, Text, Container } from "./ui";
 import { WalletConnectWrapper } from "./WalletConnectWrapper";
+import { FaRocket, FaUsers, FaCoins } from "react-icons/fa";
 
 export function Hero() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
     <section suppressHydrationWarning className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent-light/20" id="hero">
       {/* Background Pattern */}
@@ -22,14 +16,7 @@ export function Hero() {
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000" />
 
       <Container size="xl" className="relative z-10">
-        <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} animate-fade-in`}>
-          {/* Badge */}
-          <div className="mb-6">
-            <Badge className="bg-accent/10 text-accent border-accent/20 hover:bg-accent/20 transition-colors">
-              🏆 Primera plataforma de predicciones Farcaster-native
-            </Badge>
-          </div>
-
+        <div className="text-center opacity-100 translate-y-0 transition-all duration-1000 animate-fade-in">
           {/* Main Heading */}
           <Heading level={1} gradient className="mb-6 animate-fade-in-up">
             Predice Resultados,
@@ -50,7 +37,6 @@ export function Hero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <WalletConnectWrapper
-              fallbackText="🚀 Conectar Wallet"
               size="lg"
               className="bg-accent hover:bg-accent-hover text-background font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 rounded-lg"
             />
@@ -72,15 +58,24 @@ export function Hero() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">10K+</div>
+              <div className="text-3xl font-bold text-accent mb-2 flex items-center justify-center gap-2">
+                <FaRocket className="text-accent" />
+                10K+
+              </div>
               <Text size="sm" muted>Predicciones Realizadas</Text>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">500+</div>
+              <div className="text-3xl font-bold text-accent mb-2 flex items-center justify-center gap-2">
+                <FaUsers className="text-accent" />
+                500+
+              </div>
               <Text size="sm" muted>Usuarios Activos</Text>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">$25K+</div>
+              <div className="text-3xl font-bold text-accent mb-2 flex items-center justify-center gap-2">
+                <FaCoins className="text-accent" />
+                $25K+
+              </div>
               <Text size="sm" muted>Premios Distribuídos</Text>
             </div>
           </div>
@@ -88,9 +83,10 @@ export function Hero() {
       </Container>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-accent/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-accent/50 rounded-full mt-2 animate-pulse" />
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+        <div className="w-6 h-10 border-2 border-accent/50 rounded-full flex flex-col justify-center items-center py-2 space-y-1 animate-bounce bg-accent/5">
+          <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-sm" />
+          <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse animation-delay-300 shadow-sm" />
         </div>
       </div>
     </section>

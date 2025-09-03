@@ -4,8 +4,7 @@ import { type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
-import { injected, metaMask, coinbaseWallet } from "wagmi/connectors";
-import { OnchainKitProvider } from "@coinbase/onchainkit";
+import { injected, metaMask } from "wagmi/connectors";
 
 const queryClient = new QueryClient();
 
@@ -14,10 +13,10 @@ const config = createConfig({
   connectors: [
     injected(),
     metaMask(),
-    coinbaseWallet({
-      appName: "Know the Score",
-      appLogoUrl: process.env.NEXT_PUBLIC_ICON_URL,
-    }),
+    // coinbaseWallet({
+    //   appName: "Know the Score",
+    //   appLogoUrl: undefined,
+    // }),
   ],
   transports: {
     [base.id]: http(),
@@ -27,15 +26,10 @@ const config = createConfig({
 
 export function Providers(props: { children: ReactNode }) {
   return (
-    <OnchainKitProvider
-      apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY || ""}
-      chain={base}
-    >
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          {props.children}
-        </QueryClientProvider>
-      </WagmiProvider>
-    </OnchainKitProvider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        {props.children}
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

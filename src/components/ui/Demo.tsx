@@ -3,34 +3,35 @@
 import { useState } from "react";
 import { Heading, Text, Card, Badge, Section, Container } from "./ui";
 import { Button } from "./DemoComponents";
+import { FaMobileAlt, FaCrosshairs, FaBolt, FaTrophy } from "react-icons/fa";
 
 const demoSteps = [
   {
     step: 1,
     title: "Descubre en tu Feed",
     description: "Ve frames interactivos de partidos en tu Farcaster feed",
-    icon: "📱",
+    icon: <FaMobileAlt className="text-2xl text-accent" />,
     details: "Los administradores crean pozos para partidos importantes que aparecen como contenido viral en tu timeline."
   },
   {
     step: 2,
     title: "Elige tu Predicción",
     description: "Selecciona el resultado que crees con un clic",
-    icon: "🎯",
+    icon: <FaCrosshairs className="text-2xl text-accent" />,
     details: "Opciones claras: Local gana, Empate, Visitante gana. Un clic ejecuta todo automáticamente."
   },
   {
     step: 3,
     title: "Transacción On-Chain",
     description: "Tu predicción se registra en blockchain al instante",
-    icon: "⚡",
+    icon: <FaBolt className="text-2xl text-accent" />,
     details: "Smart contracts manejan depósitos, odds dinámicas y distribución automática de premios."
   },
   {
     step: 4,
     title: "Gana y Comparte",
     description: "Reclama premios automáticamente y presume tus rachas",
-    icon: "🏆",
+    icon: <FaTrophy className="text-2xl text-accent" />,
     details: "Notificaciones push, rachas tracking, y badges NFT para los mejores predictores."
   }
 ];
@@ -81,7 +82,7 @@ export function Demo() {
               <div className="relative">
                 <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-6 rounded-2xl text-white shadow-2xl">
                   <div className="text-center mb-4">
-                    <div className="text-sm opacity-90 mb-2">🏆 Copa Libertadores</div>
+                    <div className="text-sm opacity-90 mb-2"><FaTrophy className="inline mr-1" /> Copa Libertadores</div>
                     <div className="text-xl font-bold mb-1">Boca Juniors vs River Plate</div>
                     <div className="text-sm opacity-75">Miércoles 20:00</div>
                   </div>

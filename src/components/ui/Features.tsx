@@ -2,45 +2,54 @@
 
 import { useState, useEffect } from "react";
 import { Heading, Text, Card, Grid, Badge, Section } from "./ui";
+import {
+  FaCrosshairs,
+  FaHands,
+  FaFire,
+  FaMedal,
+  FaMobileAlt,
+  FaBolt,
+  FaHandPointUp
+} from "react-icons/fa";
 
 const features = [
   {
-    icon: "🎯",
+    icon: <FaCrosshairs className="text-3xl" />,
     title: "Pozos Públicos",
     description: "Participa en predicciones de partidos importantes con un clic desde tu feed social. Smart contracts manejan automáticamente depósitos y distribución de premios.",
     benefits: ["Transparente", "Sin confianza", "Auto-ejecutable"],
     color: "from-blue-500 to-cyan-500"
   },
   {
-    icon: "⚔️",
+    icon: <FaHands className="text-3xl" />,
     title: "Retos 1 vs 1",
     description: "Desafía a tus amigos en predicciones personalizadas. Crea retos únicos, establece montos y compite directamente con quienes conoces.",
     benefits: ["Personalizado", "Entre amigos", "Alta engagement"],
     color: "from-purple-500 to-pink-500"
   },
   {
-    icon: "🔥",
+    icon: <FaFire className="text-3xl" />,
     title: "Sistema de Rachas",
     description: "Construye tu reputación con rachas de aciertos consecutivos. Gana badges exclusivos y demuestra tu expertise en predicciones deportivas.",
     benefits: ["Gamificación", "Reputación", "Reconocimiento"],
     color: "from-orange-500 to-red-500"
   },
   {
-    icon: "🏅",
+    icon: <FaMedal className="text-3xl" />,
     title: "NFT Badges",
     description: "Colecciona insignias únicas basadas en tu performance. Cada badge es un NFT ERC-1155 que demuestra tus logros verificables on-chain.",
     benefits: ["Coleccionable", "On-chain", "Exclusivo"],
     color: "from-green-500 to-emerald-500"
   },
   {
-    icon: "📱",
+    icon: <FaMobileAlt className="text-3xl" />,
     title: "Farcaster-Native",
     description: "Experiencia completamente integrada en Farcaster. Las predicciones aparecen en tu feed como contenido viral natural.",
     benefits: ["Nativo", "Viral", "Social"],
     color: "from-indigo-500 to-purple-500"
   },
   {
-    icon: "⚡",
+    icon: <FaBolt className="text-3xl" />,
     title: "Base Network",
     description: "Construido en Base para transacciones ultra-rápidas y costos mínimos. Experiencia fluida sin fricciones técnicas.",
     benefits: ["Rápido", "Barato", "Escalable"],
@@ -49,7 +58,6 @@ const features = [
 ];
 
 export function Features() {
-  const [visibleCards, setVisibleCards] = useState<number[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -62,11 +70,7 @@ export function Features() {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const index = parseInt(entry.target.getAttribute('data-index') || '0');
-          setVisibleCards(prev => {
-            const newSet = new Set([...prev, index]);
-            return Array.from(newSet);
-          });
+          // Optional: Add any additional logic here if needed
         }
       });
     };
@@ -82,9 +86,6 @@ export function Features() {
         const cards = document.querySelectorAll('[data-index]');
         if (cards.length > 0) {
           cards.forEach(card => observer.observe(card));
-        } else {
-          // Fallback: show all cards if observer fails
-          setVisibleCards([0, 1, 2, 3, 4, 5]);
         }
       }
     }, 100);
@@ -114,13 +115,7 @@ export function Features() {
             key={index}
             data-index={index}
             hover
-            className={`transition-all duration-700 ${
-              mounted && visibleCards.includes(index)
-                ? 'opacity-100 translate-y-0'
-                : mounted
-                ? 'opacity-0 translate-y-8'
-                : 'opacity-100 translate-y-0'
-              }`}
+            className="transition-all duration-700 opacity-100 translate-y-0"
             suppressHydrationWarning
           >
             <div className="text-center">
@@ -162,7 +157,7 @@ export function Features() {
           ¿Listo para comenzar tu racha ganadora?
         </Text>
         <div className="flex justify-center gap-4">
-          <div className="text-4xl animate-bounce">👆</div>
+          <FaHandPointUp className="text-4xl animate-bounce text-accent" />
           <Text className="text-accent font-semibold">Conecta tu wallet arriba</Text>
         </div>
       </div>

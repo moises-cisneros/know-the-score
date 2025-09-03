@@ -1,12 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { WalletConnectWrapper } from "./WalletConnectWrapper";
+import { useAccount, useDisconnect } from "wagmi";
+import { FaSignOutAlt, FaChevronDown, FaCopy, FaCheck, FaWallet } from "react-icons/fa";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showWalletDropdown, setShowWalletDropdown] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isDisconnecting, setIsDisconnecting] = useState(false);
+
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
   useEffect(() => {
     setMounted(true);
@@ -22,6 +29,46 @@ export function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mounted]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showWalletDropdown && !(event.target as Element).closest('.wallet-nav-dropdown')) {
+        setShowWalletDropdown(false);
+      }
+    };
+
+    if (showWalletDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showWalletDropdown]);
+
+  const handleCopyAddress = async () => {
+    if (address) {
+      try {
+        await navigator.clipboard.writeText(address);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (error) {
+        console.error('Error al copiar dirección:', error);
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      console.log('Cerrando sesión desde navigation...');
+      setIsDisconnecting(true);
+      setShowWalletDropdown(false);
+      await disconnect();
+      console.log('Sesión cerrada exitosamente');
+      setIsDisconnecting(false);
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+      setIsDisconnecting(false);
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
     if (typeof window !== 'undefined') {
@@ -67,9 +114,61 @@ export function Navigation() {
             </button>
           </div>
 
-          {/* CTA Button */}
+          {/* Wallet Info or Connect Button */}
           <div className="hidden md:block">
-            <WalletConnectWrapper />
+            {isConnected ? (
+              <div className="wallet-nav-dropdown relative">
+                <button
+                  onClick={() => setShowWalletDropdown(!showWalletDropdown)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-accent/10 hover:bg-accent/20 transition-colors"
+                >
+                  <FaWallet className="h-6 w-6" />
+                  <span className="text-sm font-medium">
+                    {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Wallet'}
+                  </span>
+                  <FaChevronDown className={`h-3 w-3 opacity-70 transition-transform ${showWalletDropdown ? 'rotate-180' : ''}`} />
+                </button>
+
+                {showWalletDropdown && (
+                  <div className="absolute top-full mt-2 right-0 bg-card-bg border border-card-border rounded-lg shadow-lg py-2 min-w-48 z-50">
+                    <div className="px-4 py-2 border-b border-card-border">
+                      <div className="flex items-center gap-2 text-sm text-foreground-muted">
+                        <span>Dirección de Wallet</span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <code className="text-xs bg-background px-2 py-1 rounded flex-1">
+                          {address ? `${address.slice(0, 8)}...${address.slice(-6)}` : 'Desconocida'}
+                        </code>
+                        <button
+                          onClick={handleCopyAddress}
+                          className="p-1 hover:bg-accent/10 rounded transition-colors"
+                          title="Copiar dirección"
+                        >
+                          {copied ? (
+                            <FaCheck className="h-3 w-3 text-green-500" />
+                          ) : (
+                            <FaCopy className="h-3 w-3" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-2 text-sm transition-colors text-red-500 disabled:opacity-50"
+                      disabled={isDisconnecting}
+                    >
+                      <FaSignOutAlt className="h-4 w-4" />
+                      <span>{isDisconnecting ? 'Desconectando...' : 'Desconectar'}</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-sm text-foreground-muted">
+                No conectado
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,7 +211,59 @@ export function Navigation() {
               Sobre
             </button>
             <div className="pt-4">
-              <WalletConnectWrapper />
+              {isConnected ? (
+                <div className="wallet-nav-dropdown relative">
+                  <button
+                    onClick={() => setShowWalletDropdown(!showWalletDropdown)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-accent/10 hover:bg-accent/20 transition-colors w-full justify-center"
+                  >
+                    <FaWallet className="h-6 w-6" />
+                    <span className="text-sm font-medium">
+                      {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Wallet'}
+                    </span>
+                    <FaChevronDown className={`h-3 w-3 opacity-70 transition-transform ${showWalletDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {showWalletDropdown && (
+                    <div className="absolute bottom-full mb-2 left-0 right-0 bg-card-bg border border-card-border rounded-lg shadow-lg py-2 z-50">
+                      <div className="px-4 py-2 border-b border-card-border">
+                        <div className="flex items-center gap-2 text-sm text-foreground-muted">
+                          <span>Dirección de Wallet</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <code className="text-xs bg-background px-2 py-1 rounded flex-1">
+                            {address ? `${address.slice(0, 8)}...${address.slice(-6)}` : 'Desconocida'}
+                          </code>
+                          <button
+                            onClick={handleCopyAddress}
+                            className="p-1 hover:bg-accent/10 rounded transition-colors"
+                            title="Copiar dirección"
+                          >
+                            {copied ? (
+                              <FaCheck className="h-3 w-3 text-green-500" />
+                            ) : (
+                              <FaCopy className="h-3 w-3" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-2 text-sm transition-colors text-red-500 disabled:opacity-50"
+                        disabled={isDisconnecting}
+                      >
+                        <FaSignOutAlt className="h-4 w-4" />
+                        <span>{isDisconnecting ? 'Desconectando...' : 'Desconectar'}</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-sm text-foreground-muted text-center py-2">
+                  No conectado
+                </div>
+              )}
             </div>
           </div>
         </div>

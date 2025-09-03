@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { FaFutbol, FaCrosshairs, FaTrophy, FaRocket } from "react-icons/fa";
 
 export function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,10 +70,10 @@ export function LoadingScreen() {
 
         {/* Fun Facts */}
         <div className="text-sm text-foreground-muted max-w-xs mx-auto">
-          {progress < 30 && "⚽ Preparando los estadios..."}
-          {progress >= 30 && progress < 60 && "🎯 Calibrando predicciones..."}
-          {progress >= 60 && progress < 90 && "🏆 Cargando trofeos..."}
-          {progress >= 90 && "🚀 ¡Listo para el juego!"}
+          {progress < 30 && <><FaFutbol className="inline mr-1" /> Preparando los estadios...</>}
+          {progress >= 30 && progress < 60 && <><FaCrosshairs className="inline mr-1" /> Calibrando predicciones...</>}
+          {progress >= 60 && progress < 90 && <><FaTrophy className="inline mr-1" /> Cargando trofeos...</>}
+          {progress >= 90 && <><FaRocket className="inline mr-1" /> ¡Listo para el juego!</>}
         </div>
       </div>
     </div>

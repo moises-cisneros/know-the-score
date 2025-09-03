@@ -48,6 +48,8 @@ const config: Config = {
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
         "slide-in-left": "slideInLeft 0.6s ease-out forwards",
         "slide-in-right": "slideInRight 0.6s ease-out forwards",
+        "bounce": "bounce 1s infinite",
+        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         fadeOut: {
@@ -70,6 +72,25 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateX(30px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
+        bounce: {
+          "0%, 100%": {
+            transform: "translateY(-25%)",
+            animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)",
+          },
+          "50%": {
+            transform: "translateY(0)",
+            animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
+          },
+        },
+        pulse: {
+          "50%": { opacity: "0.5" },
+        },
+      },
+      transitionDelay: {
+        '300': '300ms',
+      },
+      animationDelay: {
+        '300': '300ms',
       },
       fontFamily: {
         'geist': ['var(--font-geist-sans)', 'sans-serif'],
