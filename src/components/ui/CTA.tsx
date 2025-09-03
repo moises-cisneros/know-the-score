@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Heading, Text, Card, Section, Container } from "./ui";
 import { Button } from "./DemoComponents";
-import { ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { WalletConnectWrapper } from "./WalletConnectWrapper";
 
 export function CTA() {
   const [timeLeft, setTimeLeft] = useState({
@@ -100,20 +100,21 @@ export function CTA() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <ConnectWallet>
-              <Button
-                size="lg"
-                className="bg-white text-accent hover:bg-gray-100 font-bold px-10 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-              >
-                🚀 Unirme Ahora - Es Gratis
-              </Button>
-            </ConnectWallet>
+            <WalletConnectWrapper
+              fallbackText="🚀 Unirme Ahora - Es Gratis"
+              size="lg"
+              className="bg-white text-accent hover:bg-gray-100 font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-lg"
+            />
 
             <Button
               variant="outline"
               size="lg"
               className="border-white/30 text-white hover:bg-white/10 font-semibold px-10 py-4 text-lg backdrop-blur-sm"
-              onClick={() => window.open('https://warpcast.com', '_blank')}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.open('https://warpcast.com', '_blank');
+                }
+              }}
             >
               Seguir en Farcaster
             </Button>

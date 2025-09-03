@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./DemoComponents";
 import { Heading, Text, Badge, Container } from "./ui";
-import { ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { WalletConnectWrapper } from "./WalletConnectWrapper";
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,7 +13,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent-light/20" id="hero">
+    <section suppressHydrationWarning className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-accent-light/20" id="hero">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 bg-pattern" />
 
@@ -49,17 +49,21 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <ConnectWallet>
-              <Button size="lg" className="bg-accent hover:bg-accent-hover text-background font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                🚀 Conectar Wallet
-              </Button>
-            </ConnectWallet>
+            <WalletConnectWrapper
+              fallbackText="🚀 Conectar Wallet"
+              size="lg"
+              className="bg-accent hover:bg-accent-hover text-background font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 rounded-lg"
+            />
 
             <Button
               variant="outline"
               size="lg"
               className="border-accent text-accent hover:bg-accent hover:text-background font-semibold px-8 py-4 text-lg transition-all duration-300"
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                if (typeof document !== 'undefined') {
+                  document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               Ver Demo
             </Button>

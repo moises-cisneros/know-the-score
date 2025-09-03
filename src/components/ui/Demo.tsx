@@ -173,7 +173,11 @@ export function Demo() {
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent-hover text-background font-semibold px-8 py-4"
-                onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  if (typeof document !== 'undefined') {
+                    document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 🚀 Comenzar Ahora
               </Button>

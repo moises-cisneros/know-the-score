@@ -39,7 +39,8 @@ const config: Config = {
         'accent-light': 'var(--app-accent-light)',
         'foreground-muted': 'var(--app-foreground-muted)',
         'gray': 'var(--app-gray)',
-        'gray-dark': 'var(--app-gray-dark)'
+        'gray-dark': 'var(--app-gray-dark)',
+        'text-background': 'var(--app-background)'
       },
       animation: {
         "fade-out": "1s fadeOut 3s ease-out forwards",

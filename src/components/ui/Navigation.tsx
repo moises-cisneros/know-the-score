@@ -1,24 +1,32 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "./DemoComponents";
-import { ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { WalletConnectWrapper } from "./WalletConnectWrapper";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -61,11 +69,7 @@ export function Navigation() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <ConnectWallet>
-              <Button size="sm" className="bg-accent hover:bg-accent-hover text-background">
-                Conectar Wallet
-              </Button>
-            </ConnectWallet>
+            <WalletConnectWrapper />
           </div>
 
           {/* Mobile Menu Button */}
@@ -108,11 +112,7 @@ export function Navigation() {
               Sobre
             </button>
             <div className="pt-4">
-              <ConnectWallet>
-                <Button size="sm" className="w-full bg-accent hover:bg-accent-hover text-background">
-                  Conectar Wallet
-                </Button>
-              </ConnectWallet>
+              <WalletConnectWrapper />
             </div>
           </div>
         </div>

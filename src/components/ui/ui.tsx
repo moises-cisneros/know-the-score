@@ -136,13 +136,15 @@ interface CardProps {
   className?: string;
   hover?: boolean;
   padding?: "sm" | "md" | "lg";
+  suppressHydrationWarning?: boolean;
 }
 
 export function Card({
   children,
   className = "",
   hover = false,
-  padding = "md"
+  padding = "md",
+  suppressHydrationWarning = false
 }: CardProps) {
   const paddingClasses = {
     sm: "p-4",
@@ -153,7 +155,10 @@ export function Card({
   const hoverClass = hover ? "hover:shadow-xl hover:scale-105 transition-all duration-300" : "";
 
   return (
-    <div className={`bg-card-bg backdrop-blur-md rounded-xl shadow-lg border border-card-border ${paddingClasses[padding]} ${hoverClass} ${className}`}>
+    <div
+      className={`bg-card-bg backdrop-blur-md rounded-xl shadow-lg border border-card-border ${paddingClasses[padding]} ${hoverClass} ${className}`}
+      suppressHydrationWarning={suppressHydrationWarning}
+    >
       {children}
     </div>
   );

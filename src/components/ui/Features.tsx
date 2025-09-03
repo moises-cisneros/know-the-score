@@ -50,13 +50,23 @@ const features = [
 
 export function Features() {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const index = parseInt(entry.target.getAttribute('data-index') || '0');
-          setVisibleCards(prev => [...new Set([...prev, index])]);
+          setVisibleCards(prev => {
+            const newSet = new Set([...prev, index]);
+            return Array.from(newSet);
+          });
         }
       });
     };
@@ -66,11 +76,24 @@ export function Features() {
       rootMargin: '0px 0px -50px 0px'
     });
 
-    const cards = document.querySelectorAll('[data-index]');
-    cards.forEach(card => observer.observe(card));
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        const cards = document.querySelectorAll('[data-index]');
+        if (cards.length > 0) {
+          cards.forEach(card => observer.observe(card));
+        } else {
+          // Fallback: show all cards if observer fails
+          setVisibleCards([0, 1, 2, 3, 4, 5]);
+        }
+      }
+    }, 100);
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [mounted]);
 
   return (
     <Section id="features" className="bg-gradient-to-b from-background to-gray-50/50 dark:to-gray-900/50">
@@ -91,10 +114,14 @@ export function Features() {
             key={index}
             data-index={index}
             hover
-            className={`transition-all duration-700 ${visibleCards.includes(index)
+            className={`transition-all duration-700 ${
+              mounted && visibleCards.includes(index)
                 ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
+                : mounted
+                ? 'opacity-0 translate-y-8'
+                : 'opacity-100 translate-y-0'
               }`}
+            suppressHydrationWarning
           >
             <div className="text-center">
               {/* Icon with gradient background */}

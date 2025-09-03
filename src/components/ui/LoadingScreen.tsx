@@ -5,8 +5,15 @@ import { useState, useEffect } from "react";
 export function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const timer = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -19,9 +26,10 @@ export function LoadingScreen() {
     }, 50);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [mounted]);
 
-  if (!isLoading) return null;
+  // Don't render anything on server to avoid hydration mismatch
+  if (!mounted || !isLoading) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
