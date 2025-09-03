@@ -34,7 +34,7 @@ export function CTA() {
   }, []);
 
   return (
-    <Section className="bg-gradient-to-r from-accent via-purple-600 to-pink-600 relative overflow-hidden">
+    <Section className="bg-gradient-to-r from-accent via-purple-600 to-pink-600 relative overflow-hidden" id="cta">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-pattern" />

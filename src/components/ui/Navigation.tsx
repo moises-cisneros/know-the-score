@@ -58,11 +58,9 @@ export function Navigation() {
 
   const handleLogout = async () => {
     try {
-      console.log('Cerrando sesión desde navigation...');
       setIsDisconnecting(true);
       setShowWalletDropdown(false);
       await disconnect();
-      console.log('Sesión cerrada exitosamente');
       setIsDisconnecting(false);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
@@ -93,29 +91,35 @@ export function Navigation() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center space-x-8">
+            <button
+              onClick={() => scrollToSection('hero')}
+              className="text-foreground-muted hover:text-accent transition-colors font-medium"
+            >
+              Inicio
+            </button>
             <button
               onClick={() => scrollToSection('features')}
-              className="text-foreground-muted hover:text-accent transition-colors"
+              className="text-foreground-muted hover:text-accent transition-colors font-medium"
             >
               Características
             </button>
             <button
               onClick={() => scrollToSection('demo')}
-              className="text-foreground-muted hover:text-accent transition-colors"
+              className="text-foreground-muted hover:text-accent transition-colors font-medium"
             >
               Demo
             </button>
             <button
-              onClick={() => scrollToSection('about')}
-              className="text-foreground-muted hover:text-accent transition-colors"
+              onClick={() => scrollToSection('cta')}
+              className="text-foreground-muted hover:text-accent transition-colors font-medium"
             >
-              Sobre
+              Comenzar
             </button>
           </div>
 
           {/* Wallet Info or Connect Button */}
-          <div className="hidden md:block">
+          <div className="block">
             {isConnected ? (
               <div className="wallet-nav-dropdown relative">
                 <button
@@ -173,7 +177,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="hidden p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
@@ -193,22 +197,28 @@ export function Navigation() {
           }`}>
           <div className="py-4 space-y-4 border-t border-gray-200 dark:border-gray-800">
             <button
+              onClick={() => scrollToSection('hero')}
+              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2 font-medium"
+            >
+              Inicio
+            </button>
+            <button
               onClick={() => scrollToSection('features')}
-              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2"
+              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2 font-medium"
             >
               Características
             </button>
             <button
               onClick={() => scrollToSection('demo')}
-              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2"
+              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2 font-medium"
             >
               Demo
             </button>
             <button
-              onClick={() => scrollToSection('about')}
-              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2"
+              onClick={() => scrollToSection('cta')}
+              className="block w-full text-left text-foreground-muted hover:text-accent transition-colors py-2 font-medium"
             >
-              Sobre
+              Comenzar
             </button>
             <div className="pt-4">
               {isConnected ? (

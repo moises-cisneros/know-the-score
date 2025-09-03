@@ -40,7 +40,7 @@ export function Demo() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <Section className="bg-gradient-to-b from-gray-50/50 to-background dark:from-gray-900/50 dark:to-background" id="demo">
+    <Section id="demo" className="bg-gradient-to-b from-gray-50/50 to-background dark:from-gray-900/50 dark:to-background">
       <Container>
         <div className="text-center mb-16">
           <Badge className="mb-4">Cómo Funciona</Badge>

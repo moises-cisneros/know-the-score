@@ -1,6 +1,8 @@
 "use client";
 
 import { Heading, Text, Container } from "./ui";
+import { SiFarcaster } from "react-icons/si";
+import { BsDiscord, BsGithub, BsTwitterX } from "react-icons/bs";
 
 const footerLinks = {
   product: [
@@ -22,10 +24,10 @@ const footerLinks = {
     { name: "Disclaimer", href: "#disclaimer" }
   ],
   social: [
-    { name: "Farcaster", href: "https://warpcast.com", icon: "🟣" },
-    { name: "Twitter", href: "https://twitter.com", icon: "🐦" },
-    { name: "Discord", href: "https://discord.com", icon: "💬" },
-    { name: "GitHub", href: "https://github.com", icon: "💻" }
+    { name: "Farcaster", href: "https://warpcast.com", icon: <SiFarcaster /> },
+    { name: "Twitter", href: "https://twitter.com", icon: <BsTwitterX /> },
+    { name: "Discord", href: "https://discord.com", icon: <BsDiscord /> },
+    { name: "GitHub", href: "https://github.com", icon: <BsGithub /> }
   ]
 };
 
